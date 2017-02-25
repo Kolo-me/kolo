@@ -11,7 +11,6 @@ import {
 import firebase from 'firebase';
 import Tinder from "keywords/Tinder";
 import Routes from "keywords/Routes";
-var PushNotification = require('react-native-push-notification');
 export default class keywords extends Component {
     componentDidMount(){
   

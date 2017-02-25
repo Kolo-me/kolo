@@ -1,5 +1,4 @@
 package com.keywords;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import android.app.Application;
 import android.util.Log;
 import com.facebook.react.ReactApplication;
@@ -23,8 +22,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-          new ReactNativePushNotificationPackage() 
+          new MainReactPackage()
       );
     }
   };
