@@ -88,13 +88,14 @@ export default React.createClass({
         outOfCards: false,
         modalVisible:false,
         hideword:20,
-        hidemeaning:20
+        hidemeaning:20,
+        index:0,
 
       }
     },
  
   Card(x) {
-
+      currentLikedItem=x;
      return (
        <View style={styles.container}>
 
@@ -165,13 +166,13 @@ export default React.createClass({
         var num=0;
         firebase.database()
         .ref('Group')
-        .child('F4')
+        .child(currentUserGroup)
         .once('value', function(snapshot){
           num =snapshot.numChildren();
     
            firebase.database()
            .ref('Group')
-           .child('F4')
+           .child(currentUserGroup)
            .once('value', function(snapshot){
             snapshot.forEach(function(childSnapshot) {
             firebase.database()
@@ -185,10 +186,10 @@ export default React.createClass({
               var w6 = snapshot.val().w6;
               var w7 = snapshot.val().w7;
               var w8 = snapshot.val().w8;
-              var keyOfWantedItem = snapshot.key;
-              //var uidOfLikedItem=snapshot.val().uid;
+              var keyOfWords = snapshot.key;
+              var uidOfOwner=snapshot.val().uid;
               // console.log(uidOfLikedItem);
-              var im = {w1:w1 ,w2:w2 , w3:w3 , w4:w4 , w5:w5, w6:w6 , w7:w7 , w8:w8,keyOfWantedItem:keyOfWantedItem  }   
+              var im = {w1:w1 ,w2:w2 , w3:w3 , w4:w4 , w5:w5, w6:w6 , w7:w7 , w8:w8,keyOfWords:keyOfWords,uidOfOwner:uidOfOwner  }   
               ar.push(im);
               i++;
               if (i==num){
@@ -257,26 +258,26 @@ export default React.createClass({
         .child(currentUserGlobal.uid)
         .child('favorite').once("value")
         .then(function(snapshot) {
-          var hasName = snapshot.hasChild(x.keyOfWantedItem);
+          var hasName = snapshot.hasChild(x.keyOfWords);
           if (hasName){
            firebase.database()
           .ref('profiles')
           .child(currentUserGlobal.uid)
-          .child('favorite').child(x.keyOfWantedItem).remove().then(function(){
+          .child('favorite').child(x.keyOfWords).remove().then(function(){
              alert("Item removed from favorite Items");
             });
           }
           else {
                   var favData = {
-                    keyOfWantedItem: x.keyOfWantedItem,
-                    uidOfLikedItem: x.uidOfLikedItem,   
+                    keyOfWords: x.keyOfWords,
+                    uidOfOwner: x.uidOfOwner,   
                     created:firebase.database.ServerValue.TIMESTAMP
                   };        
                   var uploadTask = firebase.database()
                   .ref('profiles')
                   .child(currentUserGlobal.uid)
                   .child('favorite')
-                  .child(x.keyOfWantedItem);
+                  .child(x.keyOfWords);
                   var favoriteKey = uploadTask.set(favData);
                   alert("Item has been added to favorite");
          }    
