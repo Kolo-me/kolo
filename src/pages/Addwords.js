@@ -74,7 +74,11 @@ export default class addwards extends Component {
        today = dd+'/'+mm+'/'+yyyy;
        var uploadTask1 = firebase.database()
        .ref('Group')
-       .child('F4')
+       .child(currentUserGroup);
+
+       var uploadTaskNoti = firebase.database()
+       .ref("Notifications")
+       .child(currentUserGroup);
        var itemData = {
        w1: this.state.w1,
        w2: this.state.w2,
@@ -90,6 +94,7 @@ export default class addwards extends Component {
        date: today
        };
        var Message = 'Liebe '+username;
+       uploadTaskNoti.set(itemData).key;
        var newItemKey = uploadTask1.push(itemData).key;
         Alert.alert( Message , "Wir danken dir", [ {text: 'OK', onPress: () => this.goBack()} ] );
      }

@@ -14,37 +14,23 @@ import Routes from "keywords/Routes";
 import firebaseClient from  "keywords/src/pages/FirebaseClient";
 import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
 export default class keywords extends Component {
-    componentDidMount(){
+  componentDidMount(){
+    var group = currentUserGroup;
     var save = this;
-    var NotifRef = firebase.database()
-           .ref('Group')
-           .child(currentUserGroup);
-        NotifRef.once("value")
-        .then(function(snapshot) {
-          var save1 = this;
-          var unseenNotifNumber = snapshot.numChildren(); 
-          var unseenNotifNumberGlobal = snapshot.numChildren(); 
-          if(save._mounted){
-          save1.setState({ unseenNotifNumberGlobal:unseenNotifNumber });
-        }
-        });
-        NotifRef.on('child_added', function(data) {
-
-         // console.log(data.val());
-          NotifRef.once("value")
-          .then(function(snapshot) {
-            var unseenNotifNumber = snapshot.numChildren();     
-           // console.log("unseenNotifNumber",unseenNotifNumber,unseenNotifNumberGlobal);
-           if(save._mounted){
-            save1.setState({ unseenNotifNumberGlobal:unseenNotifNumber });
-          }
-            var body1="You have "+unseenNotifNumber+ " new offers ";
-            firebaseClient.sendNotification("save1.state.token","Funshare",body1);
-          }); 
-        });
-  
-    }
-
+    var Notification = firebase.database()
+       .ref('Notifications')
+       .child(group);
+  Notification.on('child_changed', function(childSnapshot, prevChildKey) {
+    var body1="You have "+"username"+ " new offers ";
+     firebaseClient.sendNotification("","Funshare",body1);
+    });
+   Notification.once('value').then(function(snapshot) {
+        var username = snapshot.val().username;
+        var body1="You have "+"username"+ " new offers ";
+        firebaseClient.sendNotification("","Funshare",body1);
+    });
+       
+}
    goToProfile(){
     this.props.replaceRoute(Routes.Profile());
   }

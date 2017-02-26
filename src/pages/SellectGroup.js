@@ -50,7 +50,6 @@ componentDidMount() {
 
   signup(){
     var  self = this ;
-     self.goToSignUp();
     if (self.state.group)
     {  
         var groupname = self.state.group ;
