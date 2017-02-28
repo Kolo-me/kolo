@@ -31,11 +31,34 @@ export default class keywords extends Component {
     });
        
 }
-   goToProfile(){
+  goToProfile(){
     this.props.replaceRoute(Routes.Profile());
   }
    goToLogin(){
     this.props.replaceRoute(Routes.Login());
+  }
+   componentDidMount() {
+    FCM.requestPermissions(); // for iOS
+    FCM.getFCMToken().then(token => {
+      console.log(token)
+      // store fcm token in your server
+    });
+    this.notificationUnsubscribe = FCM.on('notification', (notif) => {
+      // there are two parts of notif. notif.notification contains the notification payload, notif.data contains data payload
+    });
+    this.refreshUnsubscribe = FCM.on('refreshToken', (token) => {
+      console.log(token)
+      // fcm token may not be available on first load, catch it here
+    });
+
+    FCM.subscribeToTopic('/topics/foo-bar');
+    FCM.unsubscribeFromTopic('/topics/foo-bar');
+  }
+
+  componentWillUnmount() {
+    // prevent leaking
+    this.refreshUnsubscribe();
+    this.notificationUnsubscribe();
   }
 
   render() { 
@@ -49,7 +72,7 @@ export default class keywords extends Component {
           onPress={this.goToProfile.bind(this)}
           >
           <Image
-          source={require('keywords/src/img/Home.png')}
+          source={require('keywords/src/img/Undo.png')}
           style={{width:40, height:40}}
           />
           </TouchableOpacity>
@@ -57,20 +80,13 @@ export default class keywords extends Component {
           </View>
 
           <Image
-          source={require('../img/ifunshare.png')}
+          source={require('../img/keywords.png')}
           style={{height:50, width:150 , }}
 
           />
           <View style={{flex:0.1,alignItems:'center'}}>
            
-          <TouchableOpacity
-          //onPress={this.goToChat.bind(this,0)}
-          >
-          <Image
-          source={require('keywords/src/img/ichat.png')}
-          style={{width:40, height:40}}
-          />
-          </TouchableOpacity>
+          
 
            </View>
           </View>

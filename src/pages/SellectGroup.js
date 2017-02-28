@@ -81,7 +81,7 @@ componentDidMount() {
     return (
       <Image
       resizeMode={Image.resizeMode.cover}
-      source={require('../img/background.png')}
+      source={require('../img/Background.png')}
       style = {costyles.backgroundImage}
       >
       <ScrollView style= {{flex:1}} >  
@@ -98,7 +98,7 @@ componentDidMount() {
       <View style={costyles.LogoComponent}>
       <Image 
       resizeMode={Image.resizeMode.contain}
-      source={require('../img/font-logo.png')}
+      source={require('../img/keywolrdsLogo.png')}
       style={costyles.fLogo}                                
       />
       <Image 

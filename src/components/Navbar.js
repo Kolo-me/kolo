@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 export default class Navbar extends Component {
   render() {
     return (
-    <View style={{ padding: 8, flexDirection: 'row', backgroundColor: '#336E7B' }}>
+    <View style={{ padding: 8, flexDirection: 'row', backgroundColor: '#3f3c3f' }}>
     <View style={{ flex:0.4 , justifyContent:'center' , margin:5  }}>
     <TouchableOpacity
     onPress={this.props.goBack}

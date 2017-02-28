@@ -199,7 +199,7 @@ export default class addwards extends Component {
        </View>
         </View>  
         </ScrollView>
-        <TouchableOpacity onPress = {this.StartUpbload.bind(this)} style = {{alignItems:'center' , padding:10 , backgroundColor: '#9A12B3'}} >
+        <TouchableOpacity onPress = {this.StartUpbload.bind(this)} style = {{alignItems:'center' , padding:10 , backgroundColor:   'rgba(0, 0, 0, 0.7)'}} >
         <Text style = {{color:'white' , fontSize:18 ,fontWeight: "500"}} >Fertig</Text>
         </TouchableOpacity>
       </View>
@@ -222,27 +222,29 @@ const styles = StyleSheet.create({
     borderColor:'#e3e3e3',
     borderRadius:2,
   },
-  row:{
+   row:{
     width:deviceWidth,
     height:deviceheight/4,
-    borderColor:"black",
+    borderColor:"white",
     borderWidth:1,
     flexDirection:'row'
   },
    textinput: {
     color: 'white',
-    backgroundColor:'#F62459',
+    backgroundColor:'#af0a01',
     fontSize: 20,
     flex: 0.5,
     textAlign: 'center',
-    borderColor:'black'
+    borderColor:'black',
+    textAlignVertical: 'center' 
   },
  textinput1: {
   color: 'white',
-  backgroundColor:'#3A539B',
+  backgroundColor:'#070035',
   fontSize: 20,
   flex: 0.5,
   textAlign: 'center',
+  textAlignVertical: 'center' 
   },
 });
 

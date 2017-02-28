@@ -348,7 +348,7 @@ export default React.createClass({
       <View style={{flex:0.25,alignItems:'center'}}>
       <IcoButton
       onPress={() => this.hideword()}
-      source={require('./src/img/dislike.png')}
+      source={require('./src/img/red.png')}
       icostyle={{width:60, height:60}}
       />
       </View>
@@ -364,7 +364,7 @@ export default React.createClass({
       <View style={{flex:0.25,alignItems:'center'}}>
       <IcoButton
       onPress={() =>this.hidemeaning()}
-      source={require('./src/img/like.png')}
+      source={require('./src/img/black.png')}
       icostyle={{width:60, height:60}}
       />
       </View>
@@ -407,17 +407,17 @@ export default React.createClass({
       justifyContent: 'center',
       alignItems: 'center',
     },
-      row:{
+  row:{
     width:deviceWidth,
     height:deviceheight/4,
-    borderColor:"black",
+    borderColor:"white",
     borderWidth:1,
     flexDirection:'row'
   },
    textinput: {
     color: 'white',
-    backgroundColor:'#F62459',
-  
+    backgroundColor:'#af0a01',
+    fontSize: 20,
     flex: 0.5,
     textAlign: 'center',
     borderColor:'black',
@@ -425,7 +425,7 @@ export default React.createClass({
   },
  textinput1: {
   color: 'white',
-  backgroundColor:'#3A539B',
+  backgroundColor:'#070035',
   fontSize: 20,
   flex: 0.5,
   textAlign: 'center',

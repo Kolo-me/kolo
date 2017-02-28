@@ -233,7 +233,7 @@ class Profile extends React.Component {
 
         <Image
 
-        source={require('../img/ifunshare.png')}
+        source={require('../img/keywords.png')}
         style={{height:50, width:170 }}
 
         />

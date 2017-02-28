@@ -59,7 +59,7 @@ export default class login extends Component {
     return (
       <Image
       resizeMode={Image.resizeMode.cover}
-      source={require('../img/background.png')}
+      source={require('../img/Background.png')}
       style = {costyles.backgroundImage}
       >
       <ScrollView>
@@ -68,7 +68,7 @@ export default class login extends Component {
 
       <Image 
       resizeMode={Image.resizeMode.contain}
-      source={require('../img/font-logo.png')}
+      source={require('../img/keywolrdsLogo.png')}
       style={costyles.fLogo}                                
       />
 
