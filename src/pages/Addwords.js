@@ -229,9 +229,9 @@ const styles = StyleSheet.create({
     borderWidth:1,
     flexDirection:'row'
   },
-   textinput: {
+  textinput: {
     color: 'white',
-    backgroundColor:'#af0a01',
+    backgroundColor:'#222d59',
     fontSize: 20,
     flex: 0.5,
     textAlign: 'center',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   },
  textinput1: {
   color: 'white',
-  backgroundColor:'#070035',
+  backgroundColor:'#592252',
   fontSize: 20,
   flex: 0.5,
   textAlign: 'center',

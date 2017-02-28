@@ -74,7 +74,6 @@ export default React.createClass({
           outOfCards: false
         }) 
         }
-
       });
     },
     componentWillUnmount() {
@@ -140,44 +139,76 @@ export default React.createClass({
         style={[styles.textinput1, {fontSize:this.state.hidemeaning}]}>
         {x.w8}
         </Text>
-       </View>    
        </View>
+        <View style = {{flex:1,alignItems:'center', justifyContent:'center'}}>
+        <Text
+        style={{fontSize:14}}>
+        {x.number}
+        </Text>
+       </View>      
+       </View>
+
         </View>  
 
       )
     },
-    handleYup (card) {
-       if(this._mounted)
+  handleYup (card) {
+    if(this._mounted)
       this.setState({hidemeaning:20,hideword:20});
-      this.refs['swiper']._goToNextCard();
-    },
-    handleNope (card) {
-      if(this._mounted)
-      this.setState({hidemeaning:20,hideword:20});      
-      this.refs['swiper']._goToPrevCard();
-    },
+  },
+  handleNope(card) {
+     if(this._mounted)
+      this.setState({hidemeaning:20,hideword:20});
+   this.refs['swiper']._goToPrevCard();
+  },
+  cardRemoved (index) {
+    console.log(`The index is ${index}`);
  
+    let CARD_REFRESH_LIMIT = 3
+ 
+    if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
+      console.log(`There are only ${this.state.cards.length - index - 1} cards left.`);
+ 
+      if (!this.state.outOfCards) {
+        console.log(`Adding ${Cards2.length} more cards`)
+ 
+        this.setState({
+          cards: this.state.cards.concat(Cards2),
+          outOfCards: true
+        })
+      }
+ 
+    }
+ 
+  },
     getItems(){
+      var uid = currentUserGlobal.uid;
+      var group = currentUserGroup;
       var self = this ;
       var ar = [];
-      Cards= [];
+       Cards= [];
+      if(this.props.favorite){
+       var refrence =  firebase.database()
+      .ref('profiles')
+      .child(uid)
+      .child(group)
+      .child('favorite');
+      }
+       else{
+         var refrence =  firebase.database()
+        .ref('Group')
+        .child(currentUserGroup);
+       }       
       return new Promise((next, error) => {
         var i = 0;
         var num=0;
-        firebase.database()
-        .ref('Group')
-        .child(currentUserGroup)
+        refrence
         .once('value', function(snapshot){
           num =snapshot.numChildren();
-    
-           firebase.database()
-           .ref('Group')
-           .child(currentUserGroup)
+           refrence
            .once('value', function(snapshot){
             snapshot.forEach(function(childSnapshot) {
-            firebase.database()
-            .ref('Group')
-           .child(currentUserGroup).child(childSnapshot.key).once('value').then(function(snapshot) {
+            refrence.child(childSnapshot.key).once('value').then(function(snapshot) {
               var w1 = snapshot.val().w1;
               var w2 = snapshot.val().w2;
               var w3 = snapshot.val().w3;
@@ -188,8 +219,9 @@ export default React.createClass({
               var w8 = snapshot.val().w8;
               var keyOfWords = snapshot.key;
               var uidOfOwner=snapshot.val().uid;
+              var number =i;
               // console.log(uidOfLikedItem);
-              var im = {w1:w1 ,w2:w2 , w3:w3 , w4:w4 , w5:w5, w6:w6 , w7:w7 , w8:w8,keyOfWords:keyOfWords,uidOfOwner:uidOfOwner  }   
+              var im = {w1:w1 ,w2:w2 , w3:w3 , w4:w4 , w5:w5, w6:w6 , w7:w7 , w8:w8,number:number,keyOfWords:keyOfWords,uidOfOwner:uidOfOwner  }   
               ar.push(im);
               i++;
               if (i==num){
@@ -207,8 +239,9 @@ export default React.createClass({
          })
        
          
- });
+        });
       }); 
+      
 
     },
 
@@ -226,65 +259,65 @@ export default React.createClass({
       next(Cards);
 
     },
-
- 
-
-    cardRemoved (index) {
-      console.log(`The index is ${index}`);
-
-      let CARD_REFRESH_LIMIT = 3
-
-      if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
-        console.log(`There are only ${this.state.cards.length - index - 1} cards left.`);
-
-        if (!this.state.outOfCards) {
-          console.log(`Adding ${Cards2.length} more cards`)
-
-          this.setState({
-            cards: this.state.cards.concat(Cards2),
-            outOfCards: true
-          })
-        }
-
-      }
-
-    },
  
     addtofavorite (x){
+        var group = currentUserGroup;
+        var today = new Date();
+       var dd = today.getDate();
+       var mm = today.getMonth()+1; //January is 0!
+       var yyyy = today.getFullYear();
+       var uid = currentUserGlobal.uid;
+       var username = currentUserGlobal.displayName;
+       if(dd<10) {
+           dd='0'+dd
+       } 
+   
+       if(mm<10) {
+           mm='0'+mm
+       } 
+       today = dd+'/'+mm+'/'+yyyy;
+      var favoriteref= firebase.database()
+        .ref('profiles')
+        .child(uid)
+        .child(group)
+        .child('favorite');
       if(x)
       {
-        firebase.database()
-        .ref('profiles')
-        .child(currentUserGlobal.uid)
-        .child('favorite').once("value")
+        favoriteref.once("value")
         .then(function(snapshot) {
           var hasName = snapshot.hasChild(x.keyOfWords);
           if (hasName){
-           firebase.database()
-          .ref('profiles')
-          .child(currentUserGlobal.uid)
-          .child('favorite').child(x.keyOfWords).remove().then(function(){
+           favoriteref.child(x.keyOfWords).remove().then(function(){
              alert("Item removed from favorite Items");
             });
           }
           else {
-                  var favData = {
-                    keyOfWords: x.keyOfWords,
-                    uidOfOwner: x.uidOfOwner,   
-                    created:firebase.database.ServerValue.TIMESTAMP
-                  };        
-                  var uploadTask = firebase.database()
-                  .ref('profiles')
-                  .child(currentUserGlobal.uid)
-                  .child('favorite')
-                  .child(x.keyOfWords);
-                  var favoriteKey = uploadTask.set(favData);
-                  alert("Item has been added to favorite");
+            var favData = {
+               w1:x.w1,
+               w2:x.w2,
+               w3:x.w3,
+               w4:x.w4,
+               w5:x.w5,
+               w6:x.w6,
+               w7:x.w7,
+               w8:x.w8,
+               uid:uid,
+               username:username,
+               starCount: 0,
+               date: today
+            };        
+            var uploadTask = favoriteref
+            .child(x.keyOfWords);
+            var favoriteKey = uploadTask.set(favData);
+            alert("Item has been added to favorite");
          }    
         });       
       }
     },
- 
+    _goToPrevCard(card) {
+      if(card)
+      this.refs['swiper']._goToPrevCard()
+    },
     hideword(){
       if(this.state.hidemeaning!=20)
         this.setState({hidemeaning:20});
@@ -336,7 +369,7 @@ export default React.createClass({
       showNope={false}
       handleYup={this.handleYup}
       handleNope={this.handleYup}
-      //cardRemoved={this.cardRemoved}
+      cardRemoved={this.cardRemoved}
       />
       </View>
 
@@ -409,14 +442,14 @@ export default React.createClass({
     },
   row:{
     width:deviceWidth,
-    height:deviceheight/4,
+    height:deviceheight/4-5,
     borderColor:"white",
     borderWidth:1,
     flexDirection:'row'
   },
    textinput: {
     color: 'white',
-    backgroundColor:'#af0a01',
+    backgroundColor:'#222d59',
     fontSize: 20,
     flex: 0.5,
     textAlign: 'center',
@@ -425,7 +458,7 @@ export default React.createClass({
   },
  textinput1: {
   color: 'white',
-  backgroundColor:'#070035',
+  backgroundColor:'#592252',
   fontSize: 20,
   flex: 0.5,
   textAlign: 'center',

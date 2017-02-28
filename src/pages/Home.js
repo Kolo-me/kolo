@@ -13,7 +13,7 @@ import Tinder from "keywords/Tinder";
 import Routes from "keywords/Routes";
 import firebaseClient from  "keywords/src/pages/FirebaseClient";
 import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm';
-export default class keywords extends Component {
+export default class Home extends Component {
   componentDidMount(){
     var group = currentUserGroup;
     var save = this;
@@ -91,7 +91,7 @@ export default class keywords extends Component {
            </View>
           </View>
      
-         <Tinder/>
+         <Tinder favorite={this.props.favorite}/>
      
       </View>
     );
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor:   'rgba(0, 0, 0, 0.1)'
   },
   welcome: {
     fontSize: 20,
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('keywords', () => keywords);
+AppRegistry.registerComponent('Home', () => Home);

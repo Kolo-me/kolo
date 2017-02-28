@@ -41,7 +41,6 @@ export default class login extends Component {
     // console.log("did",currentUserGlobal);
     self.exit();
     return true;
-
     });
    
   }
@@ -176,7 +175,7 @@ export default class login extends Component {
             password
             ).then(function(result){
                 AsyncStorage.setItem('userData', JSON.stringify(result));
-                currentUserGlobal=result;
+                self.currentUserGlobal=result;
                 self.goToHome();
                },function(error) {
                 alert("Sign-in failed");

@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     marginTop:10,
     textAlign: 'center',
     fontSize: 23,
+    color:'white',
     fontWeight: 'bold',
   },
   imageContainer:{  
@@ -100,7 +101,6 @@ class Profile extends React.Component {
 
 
   componentDidMount() {
-    console.log(currentUserGlobal)
    this._mounted = true;
    var self=this;
    BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -120,6 +120,11 @@ class Profile extends React.Component {
   goToHome()
   {
     this.props.replaceRoute(Routes.Home());
+  }
+  goTofavorite()
+  {
+    var favorite = 1;
+    this.props.replaceRoute(Routes.Home(favorite));
   }
    goToAddwords()
   {
@@ -158,8 +163,7 @@ class Profile extends React.Component {
       );
     return (
 
-      <View style={{  flex:1, backgroundColor:'white',   }}>
-      <TopNavigation/>  
+      <View style={{  flex:1,backgroundColor:'rgba(0, 0, 0, 0.9)'   }}> 
       <View style={styles.imageContainer}>
       <View
       style={styles.profilePictureContainer}
@@ -189,41 +193,28 @@ class Profile extends React.Component {
 
 
 
-      <View style= {{flex:0.3,marginTop:70,alignItems:'center' , }}>
+      <View style= {{flex:0.3,marginTop:70}}>
       <View style = {styles.buttongrop} >
 
-    
-      <IconButton     
-      container={{flex:1}}
-      withoutlike={true}
-      value={"Add new words"}
-      source={require('../img/box.png')}
-      icostyle={{ width:30,
-        height: 30,
-        marginLeft:3}}
-        onPress={this.goToAddwords.bind(this)}
-        />
+       <TouchableOpacity style={{flex:1 ,alignItems:'center', justifyContent:'center' ,backgroundColor:'rgba(0, 0, 0, 0.3)', margin:5}}
+        onPress={this.goToHome.bind(this)}>                
+        <Text style={{color:'white' , fontSize:18}}>Go to Home</Text>     
+      </TouchableOpacity>
 
-        <IconButton
-        container={{  flex: 1 ,flexDirection: "row" }}
-        withoutlike={true}
-        value={"Einstellungen"}
-        source={require('../img/tools.png')}
-        //onPress={this.logout.bind(this)}
-        />
+       <TouchableOpacity style={{flex:1 ,alignItems:'center', justifyContent:'center' ,backgroundColor:'rgba(0, 0, 0, 0.3)', margin:5}}
+        onPress={this.goTofavorite.bind(this)}>                
+        <Text style={{color:'white' , fontSize:18}}>My favorite Words</Text>     
+      </TouchableOpacity>
+        
+      <TouchableOpacity style={{flex:1 ,alignItems:'center', justifyContent:'center' ,backgroundColor:'rgba(0, 0, 0, 0.3)', margin:5}}
+       onPress={this.goToAddwords.bind(this)}>                
+        <Text style={{color:'white' , fontSize:18}}>Add new Words</Text>     
+      </TouchableOpacity>
 
-     
-     
-        <IconButton
-        container={{  flex: 1 , flexDirection: "row" }}
-        withoutlike={true}
-        value={"abmeleden"}
-        source={require('../img/wunsch.png')}
-         onPress={this.logout.bind(this)}
-        />
-
-       
- 
+        <TouchableOpacity style={{flex:1 ,alignItems:'center', justifyContent:'center' ,backgroundColor:'rgba(0, 0, 0, 0.3)', margin:5}}
+       onPress={this.logout.bind(this)}>                
+        <Text style={{color:'white' , fontSize:18}}>Sign out</Text>     
+      </TouchableOpacity>
 
       
         </View>

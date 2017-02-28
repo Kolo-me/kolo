@@ -28,11 +28,13 @@ class Routes {
     }
   }
 
-  Home() {
+   Home(fav) {
+    var favorite;
+    favorite=fav;
     return {
-      name: "Home",      
+      name: "Home",  
       component: Home,
- 
+      passProps: { favorite: favorite },     
     }
   }
     Profile() {
