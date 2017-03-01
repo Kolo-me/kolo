@@ -153,8 +153,7 @@ export default React.createClass({
       )
     },
   handleYup (card) {
-    if(this._mounted)
-      this.setState({hidemeaning:20,hideword:20});
+   
   },
   handleNope(card) {
      if(this._mounted)
