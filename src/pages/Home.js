@@ -31,6 +31,7 @@ export default class Home extends Component {
     });
        
 }
+
   goToProfile(){
     this.props.replaceRoute(Routes.Profile());
   }

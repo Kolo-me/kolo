@@ -1,6 +1,6 @@
 'use strict';
 
- 
+import Notepad from './src/pages/Notepad'; 
 import Home from './src/pages/Home';
 import Login from './src/pages/login';
 import Signup from './src/pages/signup';
@@ -62,6 +62,13 @@ class Routes {
     name: "Addwords",      
     component: Addwords,
    }
+  }
+
+  Notepad() {
+    return {
+      name: "Notepad",  
+      component: Notepad,  
+    }
   }
 
   

@@ -117,6 +117,9 @@ class Profile extends React.Component {
     });
 
   }
+ goToNotepad(){
+    this.props.replaceRoute(Routes.Notepad());
+  }
   goToHome()
   {
     this.props.replaceRoute(Routes.Home());
@@ -195,6 +198,11 @@ class Profile extends React.Component {
 
       <View style= {{flex:0.3,marginTop:70}}>
       <View style = {styles.buttongrop} >
+
+      <TouchableOpacity style={{flex:1 ,alignItems:'center', justifyContent:'center' ,backgroundColor:'rgba(0, 0, 0, 0.3)', margin:5}}
+        onPress={this.goToNotepad.bind(this)}>                
+        <Text style={{color:'white' , fontSize:18}}>Go to Notepad</Text>     
+      </TouchableOpacity>
 
        <TouchableOpacity style={{flex:1 ,alignItems:'center', justifyContent:'center' ,backgroundColor:'rgba(0, 0, 0, 0.3)', margin:5}}
         onPress={this.goToHome.bind(this)}>                
