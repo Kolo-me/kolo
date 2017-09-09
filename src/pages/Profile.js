@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react'; 
-import{
+import React from 'react';
+import {
   AppRegistry,
   AsyncStorage,
   Dimensions,
@@ -20,15 +20,15 @@ import IcoButton from 'keywords/src/components/icobutton';
 import firebase from 'firebase';
 import Routes from 'keywords/Routes';
 import IconButton from 'keywords/src/components/icotextButton';
-var deviceWidth = Dimensions.get('window').width -6;
-var deviceheight = Dimensions.get('window').height  ;
+var deviceWidth = Dimensions.get('window').width - 6;
+var deviceheight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
 
   inputContainer: {
-    flex:1,
-    margin:20, 
-    marginTop:10,
-    marginBottom:0   
+    flex: 1,
+    margin: 20,
+    marginTop: 10,
+    marginBottom: 0
   },
   input: {
     textAlign: 'center',
@@ -37,15 +37,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   username: {
-    marginTop:10,
+    marginTop: 10,
     textAlign: 'center',
     fontSize: 23,
-    color:'white',
+    color: 'white',
     fontWeight: 'bold',
   },
-  imageContainer:{  
+  imageContainer: {
     marginTop: 25,
-    flex:0.3,
+    flex: 0.3,
   },
   profilePictureContainer: {
     flexDirection: 'row',
@@ -59,28 +59,31 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   buttongrop: {
-    flex:1,
-    justifyContent:'center',
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 
 class Profile extends React.Component {
   constructor(props) {
-   
+
     super(props);
-    this.exit = this.exit.bind(this); 
-    this.state={user:"hi" , loading:false};
+    this.exit = this.exit.bind(this);
+    this.state = {
+      user: "hi",
+      loading: false
+    };
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this._mounted = false;
-    }
-
-  exit(){
-    BackAndroid.exitApp();   
   }
-   componentWillMount() {
-   /* var user = firebase.auth().currentUser;
+
+  exit() {
+    BackAndroid.exitApp();
+  }
+  componentWillMount() {
+    /* var user = firebase.auth().currentUser;
 
      user.sendEmailVerification().then(function() {
     alert("hi")
@@ -88,7 +91,7 @@ class Profile extends React.Component {
     // An error happened.
   });
 */
- /*   var auth = firebase.auth();
+    /*   var auth = firebase.auth();
     var emailAddress = "emsfoit@gmail.com";
 
     auth.sendPasswordResetEmail(emailAddress).then(function() {
@@ -97,15 +100,15 @@ class Profile extends React.Component {
       // An error happened.
     });
 */
-  }  
+  }
 
 
   componentDidMount() {
-   this._mounted = true;
-   var self=this;
-   BackAndroid.addEventListener('hardwareBackPress', () => {
-    self.exit();
-    return true;
+    this._mounted = true;
+    var self = this;
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      self.exit();
+      return true;
     });
   }
   logout() {
@@ -113,37 +116,32 @@ class Profile extends React.Component {
     AsyncStorage.removeItem('userData').then(() => {
       firebase.auth().signOut().then(() => {
         this.props.replaceRoute(Routes.Login());
-      });  
+      });
     });
 
   }
- goToNotepad(){
+  goToNotepad() {
     this.props.replaceRoute(Routes.Notepad());
   }
-  goToHome()
-  {
+  goToHome() {
     this.props.replaceRoute(Routes.Home());
   }
-  goTofavorite()
-  {
+  goTofavorite() {
     var favorite = 1;
     this.props.replaceRoute(Routes.Home(favorite));
   }
-   goToAddwords()
-  {
+  goToAddwords() {
     this.props.replaceRoute(Routes.Addwords());
   }
-  goToWish()
-  {
+  goToWish() {
     this.props.replaceRoute(Routes.wishlist());
   }
-  goToPendingOffers()
-  {
+  goToPendingOffers() {
     this.props.replaceRoute(Routes.PendingOffers());
   }
   render() {
-    var content = this.state.loading ? "Hi" : this.state.user.desplayName ;
-             
+    var content = this.state.loading ? "Hi" : this.state.user.desplayName;
+
     const TopNavigation = () => (
       <View style={{ padding: 10, flexDirection: 'row', backgroundColor: '#FF5C7E' }}>
       <View style={{ flex:0.4 , justifyContent:'center' , margin:5  }}>
@@ -163,8 +161,8 @@ class Profile extends React.Component {
       </View>
 
       </View>
-      );
-    return (
+    );
+    return(
 
       <View style={{  flex:1,backgroundColor:'rgba(0, 0, 0, 0.9)'   }}> 
       <View style={styles.imageContainer}>
@@ -241,50 +239,48 @@ class Profile extends React.Component {
 
         </View>
 
-        );
-      }
- 
-
-      addstuff() {
-
-        //this.props.replaceRoute(Routes.addstuff());
-
-      }
-
-      goTomysuff() {
-
-        //this.props.replaceRoute(Routes.mystuff());
-
-      }
-      goToAcceptedOffers() {
-
-        //this.props.replaceRoute(Routes.AcceptedOffers());
-
-      }
-
-      goToSetting() {
-
-        //this.props.replaceRoute(Routes.setting());
-
-      }
-
-_onLoadUserCompleted(user) {
- 
-}
-
-_onLogout() {
-  this.props.replaceRoute(Routes.login());
-}
+    );
+  }
 
 
+  addstuff() {
 
-onOnboardStarted(url) {
+    //this.props.replaceRoute(Routes.addstuff());
+
+  }
+
+  goTomysuff() {
+
+    //this.props.replaceRoute(Routes.mystuff());
+
+  }
+  goToAcceptedOffers() {
+
+    //this.props.replaceRoute(Routes.AcceptedOffers());
+
+  }
+
+  goToSetting() {
+
+    //this.props.replaceRoute(Routes.setting());
+
+  }
+
+  _onLoadUserCompleted(user) {
+
+  }
+
+  _onLogout() {
+    this.props.replaceRoute(Routes.login());
+  }
 
 
-  Actions.onboard(url);
-}
 
- 
+  onOnboardStarted(url) {
+
+
+    Actions.onboard(url);
+  }
 
 
 

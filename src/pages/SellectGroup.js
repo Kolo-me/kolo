@@ -1,6 +1,8 @@
 'use strict';
-import React, { Component } from 'react';
-import  {
+import React, {
+  Component
+} from 'react';
+import {
   AppRegistry,
   Text,
   TextInput,
@@ -18,15 +20,15 @@ import IcoButton from 'keywords/src/components/icobutton';
 import Routes from 'keywords/Routes';
 import firebase from 'firebase';
 import costyles from '../styles/co-styles.js';
-var deviceheight = Dimensions.get('window').height ;
-var devicewidth = Dimensions.get('window').width ;
+var deviceheight = Dimensions.get('window').height;
+var devicewidth = Dimensions.get('window').width;
 
- 
+
 
 
 export default class sellectGroup extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
@@ -34,51 +36,47 @@ export default class sellectGroup extends Component {
       group: null,
     };
   }
- 
-componentDidMount() {
-  var self=this;
-  BackAndroid.addEventListener('hardwareBackPress', () => {
-  // console.log("did",currentUserGlobal);
-  self.goBack();
-  return true;
-});
+
+  componentDidMount() {
+    var self = this;
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      // console.log("did",currentUserGlobal);
+      self.goBack();
+      return true;
+    });
   }
-  goBack(){
+  goBack() {
     this.props.replaceRoute(Routes.Login());
     return true;
   }
 
-  signup(){
-    var  self = this ;
-    if (self.state.group)
-    {  
-        var groupname = self.state.group ;
-        firebase.database()
+  signup() {
+    var self = this;
+    if(self.state.group) {
+      var groupname = self.state.group;
+      firebase.database()
         .ref('Group')
         .once("value")
         .then(function(snapshot) {
-          var hasName = snapshot.hasChild(groupname); 
-          if(hasName)
-            {
-             currentUserGroup = groupname ;
-              self.goToSignUp();
-            }
-          else
+          var hasName = snapshot.hasChild(groupname);
+          if(hasName) {
+            currentUserGroup = groupname;
+            self.goToSignUp();
+          } else
             alert("Keine Groppe gefunden")
-         
-        }); 
-       
-    }
-    else
+
+        });
+
+    } else
       alert("Füllen Sie alle die Felde")
   }
-  goToSignUp(){
+  goToSignUp() {
     this.props.replaceRoute(Routes.Signup());
   }
-  
+
   render() {
- 
-    return (
+
+    return(
       <Image
       resizeMode={Image.resizeMode.cover}
       source={require('../img/Background.png')}
@@ -138,7 +136,7 @@ componentDidMount() {
       </View>
       </ScrollView>  
       </Image>
-      );
-    }
+    );
   }
-  AppRegistry.registerComponent('sellectGroup', () => sellectGroup);
+}
+AppRegistry.registerComponent('sellectGroup', () => sellectGroup);

@@ -1,6 +1,6 @@
 'use strict';
-import React from 'react'; 
-import{
+import React from 'react';
+import {
   StyleSheet,
   PropTypes,
   Text,
@@ -34,7 +34,7 @@ class imgbutton extends React.Component {
   render() {
     let textStyle = [styles.buttonText, this.props.textStyle];
 
-    return (
+    return(
       <TouchableOpacity
         activeOpacity={this.props.activeOpacity}
         onPress={() => this.onPress()}
@@ -47,7 +47,7 @@ class imgbutton extends React.Component {
   }
 
   onPress() {
-    if (this.props.enabled) {
+    if(this.props.enabled) {
       this.props.onPress();
     }
   }

@@ -1,20 +1,21 @@
-
 'use strict';
 
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import {
-    TouchableOpacity,
-    Text,
-    View,
-    Image,
-    StyleSheet
+  TouchableOpacity,
+  Text,
+  View,
+  Image,
+  StyleSheet
 } from 'react-native';
 
 
 
 export default class InputButton extends Component {
 
-    render() {
+  render() {
     var container = (
       <View style = {{flex:1}}>
       <View style={this.props.ccontainerStyle || styles.ccontainer}>
@@ -35,48 +36,48 @@ export default class InputButton extends Component {
       </View>
       </View>
     );
-        return (
-        <TouchableOpacity style={this.props.container || styles.container}
+    return(
+      <TouchableOpacity style={this.props.container || styles.container}
                             
                             onPress={this.props.onPress}>
                {container}
             </TouchableOpacity>
-        )
-    }
+    )
+  }
 
 }
 var styles = StyleSheet.create({
 
-    container: {
-        flex: 0.5 ,
-        flexDirection: "row",
-        backgroundColor: '#efefef',
-        borderRadius:3,
-        margin:7 ,
-        
-    },
+  container: {
+    flex: 0.5,
+    flexDirection: "row",
+    backgroundColor: '#efefef',
+    borderRadius: 3,
+    margin: 7,
 
-   ccontainer: {
+  },
+
+  ccontainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-  
+
   },
   icostyle: {
-    width:28,
+    width: 28,
     height: 28,
-    marginLeft:3
+    marginLeft: 3
 
   },
   labelContainer: {
-    marginLeft:10
- 
+    marginLeft: 10
+
   },
-  
 
-    inputButtonText: {
-        fontSize: 17,  
-        color: 'black'
-    },
 
-  
+  inputButtonText: {
+    fontSize: 17,
+    color: 'black'
+  },
+
+
 });
